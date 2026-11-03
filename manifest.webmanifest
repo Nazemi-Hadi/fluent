@@ -7,8 +7,28 @@
   "background_color": "#f5f4fb",
   "theme_color": "#4f46e5",
   "icons": [
-    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png"},
-    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png"},
-    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
-  ]
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "id": "/fluent/",
+  "description": "Daily English speaking & listening coach: 100+ words a day, pronunciation, accents, stories and analysis.",
+  "categories": [
+    "education"
+  ],
+  "lang": "en-GB",
+  "orientation": "any"
 }

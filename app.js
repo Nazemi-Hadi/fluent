@@ -629,7 +629,8 @@
     var mins = Math.floor(todayMs() / 60000), ph = C.phases[Math.floor((di.week - 1) / 4)];
     var nt = newToday().length, due = dueKeys().length, seen = seenCount();
     var next = bl.filter(function (b) { return !S.done[VIEW + ":" + b[0]]; })[0];
-    var h = '<div class="card hero"><div class="dnav">' +
+    var h = (installEvt ? '<div class="card install"><div><b>Install Fluent as an app</b><div class="small muted">Opens in its own window, works offline, icon on your home screen or desktop.</div></div><button class="btn p" data-a="install">Install</button></div>' : "") +
+      '<div class="card hero"><div class="dnav">' +
       '<button class="btn sm ghost" data-a="prev"' + (VIEW <= 0 ? " disabled" : "") + ">&#8592;</button>" +
       '<div class="center"><b>Day ' + (VIEW + 1) + " of " + DAYS + '</b><div class="small muted">' + niceDate(addDays(S.start, VIEW)) + "</div></div>" +
       '<button class="btn sm ghost" data-a="next"' + (VIEW >= DAYS - 1 ? " disabled" : "") + ">&#8594;</button></div>" +
@@ -1198,6 +1199,19 @@
     var f = ACT[el.getAttribute("data-a")];
     if (f) { if (el.tagName === "A") e.preventDefault(); f(el, e); }
   });
+
+  // ---------- install as an app ----------
+  var installEvt = null;
+  window.addEventListener("beforeinstallprompt", function (e) {
+    e.preventDefault(); installEvt = e;
+    if ((location.hash || "#today").indexOf("#today") === 0) vToday();
+  });
+  window.addEventListener("appinstalled", function () { installEvt = null; toast("Fluent is installed"); if ((location.hash || "#today").indexOf("#today") === 0) vToday(); });
+  ACT.install = function () {
+    if (!installEvt) return;
+    installEvt.prompt();
+    installEvt.userChoice.then(function () { installEvt = null; vToday(); });
+  };
 
   // ---------- router ----------
   function route() {
