@@ -7,6 +7,7 @@ phr = json.load(open("cache_phr.json", encoding="utf-8"))
 import os
 wk = json.load(open("cache_wk.json", encoding="utf-8")) if os.path.exists("cache_wk.json") else {}
 tr = json.load(open("cache_tr.json", encoding="utf-8")) if os.path.exists("cache_tr.json") else {}
+tt = json.load(open("cache_tt.json", encoding="utf-8")) if os.path.exists("cache_tt.json") else {}
 WKPOS = {"noun": "noun", "verb": "verb", "adjective": "adjective", "adverb": "adverb", "preposition": "preposition",
          "conjunction": "conjunction", "pronoun": "pronoun", "determiner": "determiner", "exclamation": "interjection", "number": "numeral"}
 UK = {"aluminum": "aluminium", "catalog": "catalogue", "councilor": "councillor", "counseling": "counselling",
@@ -51,6 +52,8 @@ for o in ox:
             defs.append([pos, sec["definition"], sec["example"]])
         elif not ex:
             defs[-1][2] = next((x["example"] for x in ds[1:4] if x.get("example")), "")
+    if defs and not any(x[2] for x in defs) and tt.get(w):
+        defs[0][2] = tt[w][0]
     if not d: stats["nodict"].append(w)
     elif not defs: stats["nodef"].append(w)
     fa = ""

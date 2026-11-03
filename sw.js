@@ -1,5 +1,5 @@
 // Fluent service worker: cache the app shell, stale-while-revalidate. Bump CACHE on every shell change.
-var CACHE = "fluent-v2";
+var CACHE = "fluent-v3";
 var SHELL = ["./", "index.html", "app.js", "course.js", "extras.js", "words.js", "manifest.webmanifest", "icons/icon-192.png", "icons/icon-512.png"];
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(SHELL); }).then(function () { return self.skipWaiting(); }));
